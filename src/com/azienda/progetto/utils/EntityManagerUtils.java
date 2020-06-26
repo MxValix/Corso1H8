@@ -14,6 +14,12 @@ public class EntityManagerUtils {
 	}
 	
 	public static void chiudiConnessione(EntityManager entityManager) {
-		entityManager.close();
+		EntityManagerFactory emf = entityManager.getEntityManagerFactory();
+		if ( entityManager.isOpen() ) {
+		    entityManager.close();
+		}
+		if ( emf.isOpen() ) {
+		    emf.close();
+		}
 	}
 }

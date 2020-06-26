@@ -35,13 +35,7 @@ public class InitServlet extends HttpServlet {
 	
 	public void destroy(){	
 		EntityManager entityManager = (EntityManager) getServletContext().getAttribute(Costanti.CHIAVE_SERVLET);	
-		EntityManagerFactory emf = entityManager.getEntityManagerFactory();
-		if ( entityManager.isOpen() ) {
-		    entityManager.close();
-		}
-		if ( emf.isOpen() ) {
-		    emf.close();
-		}
+		EntityManagerUtils.chiudiConnessione(entityManager);
 	}
 	
  
