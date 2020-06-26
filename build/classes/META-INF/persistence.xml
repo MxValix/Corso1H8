@@ -18,6 +18,10 @@
             <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
+            
+            <property name="connection.pool_size" value="1"/>
+
+
         </properties>
     </persistence-unit>
 </persistence>

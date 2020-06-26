@@ -1,6 +1,7 @@
 package com.azienda.progetto.web;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,7 @@ public class InitServlet extends HttpServlet {
 		
 		UtenteDao utenteDao = new UtenteDao(entityManager);
 	    BusinessLogic businessLogic = new BusinessLogic(entityManager,utenteDao);
+	    
 		getServletContext().setAttribute(Costanti.CHIAVE_SERVLET, entityManager);		
 		getServletContext().setAttribute(Costanti.CHIAVE_UTENTE_DAO, utenteDao);
 		getServletContext().setAttribute(Costanti.CHIAVE_BUSINESS_LOGIC, businessLogic);
@@ -33,7 +35,13 @@ public class InitServlet extends HttpServlet {
 	
 	public void destroy(){	
 		EntityManager entityManager = (EntityManager) getServletContext().getAttribute(Costanti.CHIAVE_SERVLET);	
-		entityManager.close();
+		EntityManagerFactory emf = entityManager.getEntityManagerFactory();
+		if ( entityManager.isOpen() ) {
+		    entityManager.close();
+		}
+		if ( emf.isOpen() ) {
+		    emf.close();
+		}
 	}
 	
  

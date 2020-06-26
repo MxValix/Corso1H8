@@ -1,6 +1,7 @@
 package com.azienda.progetto.web;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,37 +31,50 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		boolean isUsernameValid = username!=null && !username.equals("");
 		boolean isPasswordValid = password!=null && !password.equals("");
-		String divEsito = "";
+		HashMap<String, String> tagMap = new HashMap<String, String>();
 		
 		if (!(isUsernameValid && isPasswordValid)) { 
-			 divEsito = "<h3>Username e/o password mancante.</h3>";
-			 divEsito += "<a href=\"/Corso1H8/html/login.html\">Effettua di nuovo il login</a>";
-			 divEsito += "<a href=\"/Corso1H8/html/areaPubblica/pubblica.html\">Visita l'area pubblica.</a>";
+			 String h3 = "<h3>Username e/o password mancante.</h3>";
+			 String btn1 = "<a style=\"text-decoration:none;color:black;\" href=\"/Corso1H8/html/login.html\" >Effettua di nuovo il login</a>";
+			 String btn2 = "<a style=\"text-decoration:none;color:black;\" href=\"/Corso1H8/html/areaPubblica/pubblica.html\">Visita l'area pubblica</a>";
+			 tagMap.put("h3", h3);
+			 tagMap.put("btn1", btn1);
+			 tagMap.put("btn2", btn2);	
 		}
 		else {
-			divEsito = esitoLogin(username,password,request);
+			tagMap = esitoLogin(username,password,request);
 		}
 		
-		HtmlPageUtils.creaPagina(divEsito,response);
+		HtmlPageUtils.creaPagina(tagMap,response);
 
 	}
 		
-	private String esitoLogin(String username,String password, HttpServletRequest request) {
+	private HashMap<String,String> esitoLogin(String username,String password, HttpServletRequest request) {
 		UtenteDao utenteDao = (UtenteDao)getServletContext().getAttribute(Costanti.CHIAVE_UTENTE_DAO);
 		BusinessLogic businessLogic = (BusinessLogic)getServletContext().getAttribute(Costanti.CHIAVE_BUSINESS_LOGIC);
 		boolean checkUserPassword = businessLogic.checkUsernamePassword(username, password);
-		String divEsito = "";
+		HashMap<String, String> tagMap = new HashMap<String, String>();
+		String h3 = "";
+		String btn1 = "";
+		String btn2 = "";
 		if (checkUserPassword) {
 			request.getSession().setAttribute(Costanti.CHIAVE_SESSIONE, utenteDao);
-			divEsito = "<h3>Login effettuato.</h3>";
-			divEsito += "<a href=\"/Corso1H8/html/areaPrivata/privata.html\">Entra nell'area riservata</a>";
+			h3 = "<h3>Login effettuato.</h3>";
+			btn1 =  "<a style=\"text-decoration:none;color:black;\" href=\"/Corso1H8/html/areaPrivata/privata.html\">Entra nell'area riservata</a>";
+			
 		}
 		else {
-			divEsito = "<h3>Username e/o password errata.</h3>";
-			divEsito += "<a href=\"/Corso1H8/html/login.html\">Effettua di nuovo il login</a>";
-			divEsito += "<a href=\"/Corso1H8/html/areaPubblica/pubblica.html\">Visita l'area pubblica.</a>";
+			h3 = "<h3>Username e/o password errata.</h3>";
+			btn1 = "<a style=\"text-decoration:none;color:black;\" href=\"/Corso1H8/html/login.html\">Effettua di nuovo il login</a>";
+			btn2 = "<a style=\"text-decoration:none;color:black;\" href=\"/Corso1H8/html/areaPubblica/pubblica.html\">Visita l'area pubblica.</a>";
+
 		}	
-		return divEsito;
+		
+		tagMap.put("h3", h3);
+		tagMap.put("btn1", btn1);
+		tagMap.put("btn2", btn2);
+
+		return tagMap;
 	}
 
 }

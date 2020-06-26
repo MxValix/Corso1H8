@@ -52,15 +52,12 @@ public class BusinessLogic {
 		boolean isCorrect = false;
 		try {
 			List<Utente> listaUtente = utenteDao.findByUsernameAndPassword(username, password);
-			System.out.println("Ho fatto la query");
 			
 			if (listaUtente==null || listaUtente.isEmpty()) {
 				isCorrect = false;
-				System.out.println("isCorrect primo if ");
 			}
 			else if (listaUtente.size()>1) {
 				isCorrect = false;
-				System.out.println("isCorrect secondo if ");
 
 				throw new Exception("Due o più persone con lo stesso username.");
 				
@@ -72,11 +69,8 @@ public class BusinessLogic {
 				boolean checkUserPass = usernameDb.equalsIgnoreCase(username) && passwordDb.equals(password);
 				if (checkUserPass) {
 					isCorrect = true;
-					System.out.println("Sono nel true");
 				} else {
 					isCorrect = false;
-					System.out.println("Sono nel false");
-
 				}
 			}	
 			em.getTransaction().commit();
