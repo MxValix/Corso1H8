@@ -16,8 +16,8 @@ import com.azienda.progetto.businessLogic.UtenteDao;
 import com.azienda.progetto.utils.Costanti;
 
 
-@WebFilter("/html/areaPrivata/*")
-public class FiltroAccessi implements Filter {
+@WebFilter("/html/login.html")
+public class FiltroCache implements Filter {
 
   
 	@Override
@@ -30,8 +30,8 @@ public class FiltroAccessi implements Filter {
 		
 		UtenteDao utenteDao = (UtenteDao) httpRequest.getSession().getAttribute(Costanti.CHIAVE_SESSIONE);
 		
-		if (utenteDao == null) {
-			httpRequest.getRequestDispatcher("/html/login.html").forward(httpRequest, response);
+		if (utenteDao != null) {
+			httpRequest.getRequestDispatcher("/html/areaPrivata/privata.html").forward(httpRequest, response);
 		} else {
 			chain.doFilter(httpRequest, response);
 		}

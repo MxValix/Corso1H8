@@ -1,6 +1,7 @@
 package com.azienda.progetto.web;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -22,11 +23,15 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		response.setHeader("Last-modified", LocalDateTime.now().toString());
+		response.setHeader("Cache-control", "no-store");
 		doPost(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		response.setHeader("Last-modified", LocalDateTime.now().toString());
+		response.setHeader("Cache-control", "no-store");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		boolean isUsernameValid = username!=null && !username.equals("");
