@@ -1,0 +1,73 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+body {
+	background-color: #F3F1F1;
+	font-family: "Roboto", sans-serif;
+}
+
+.container {
+	padding: 3% 0 0;
+	margin: auto;
+}
+
+.content {
+	position: relative;
+	z-index: 1;
+	background: #FFFFFF;
+	max-width: 40%;
+	margin: 0 auto 100px;
+	padding: 45px;
+	padding-top: 10px;
+	text-align: center;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
+		rgba(0, 0, 0, 0.24);
+}
+
+.fa-exclamation-triangle {
+	font-size: 60px;
+}
+
+#danger-icon {
+	color: #ffc107;
+}
+
+#error-icon {
+	color: red;
+}
+
+a {
+	text-decoration: bold;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+p {
+	margin: 0;
+}
+
+a.button-href {
+	-webkit-appearance: button;
+	-moz-appearance: button;
+	appearance: button;
+	text-decoration: none;
+	font-family: "Roboto", sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	width: 100%;
+	border: 0;
+	padding: 15px 0 15px 0px;
+	font-size: 14px;
+	cursor: pointer;
+	background-color: #008CBA;
+	color: white;
+	border: 2px solid white;
+	margin-top:30px;
+}
+
+a.button-href:hover, 
+a.button-href:active, 
+a.button-href:focus {
+	background-color: #006B8E;
+}

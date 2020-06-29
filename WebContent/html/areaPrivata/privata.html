@@ -2,14 +2,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="/Corso1H8/css/login.css?v=0.0.0">
+<meta  http-equiv="pragma" content="no-cache">	
 <title>Area privata</title>
 </head>
 <body>
-	<div style="text-align: center">
-		<div>Benvenuto nell'area riservata</div>
-		<div style="margin-top: 20px">
-			<form action="/Corso1H8/logout" method="POST">
-				<input type="submit" value="Logout">
+
+	<div class="container">
+		<div class="form">
+			<h1>Benvenuto nell'area privata</h1>
+			<p>Puoi accedere a quest'area perché sei un utente registrato.</p>
+			<form class="login-form" action="/Corso1H8/logout" method="POST">
+				<input type="submit"
+					id="button" value="Logout">
 			</form>
 		</div>
 	</div>

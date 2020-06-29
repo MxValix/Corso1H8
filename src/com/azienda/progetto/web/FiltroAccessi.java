@@ -1,7 +1,6 @@
 package com.azienda.progetto.web;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,28 +13,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.azienda.progetto.businessLogic.UtenteDao;
 import com.azienda.progetto.utils.Costanti;
+import com.azienda.progetto.utils.FiltroUtils;
 
+import javafx.util.Pair;
 
-@WebFilter("/html/areaPrivata/*")
+@WebFilter("/html/*")
 public class FiltroAccessi implements Filter {
 
-  
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		httpResponse.setHeader("Last-modified", LocalDateTime.now().toString());
-		httpResponse.setHeader("Cache-control", "no-store");
-
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
+			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		
+		HttpServletResponse httpResponse = FiltroUtils.setHeaderResponse(response);
 		UtenteDao utenteDao = (UtenteDao) httpRequest.getSession().getAttribute(Costanti.CHIAVE_SESSIONE);
-		
-		if (utenteDao == null) {
-			httpRequest.getRequestDispatcher("/html/login.html").forward(httpRequest, response);
-		} else {
-			chain.doFilter(httpRequest, response);
+		String pagePath = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
+
+		Pair<Boolean,String> chainPair = FiltroUtils.uriDestinazioneFilter(pagePath, utenteDao);
+		if (chainPair.getKey()) {
+			chain.doFilter(httpRequest, httpResponse);
+		}
+		else {
+			pagePath = chainPair.getValue();
+			httpRequest.getRequestDispatcher(pagePath).forward(httpRequest, httpResponse);
 		}
 	}
-	
-
 }

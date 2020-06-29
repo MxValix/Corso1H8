@@ -3,7 +3,6 @@ package com.azienda.progetto.utils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +23,6 @@ public class HtmlPageUtils {
 		html += "</span></div>";
 		response.setHeader("Cache-control", "no-store");
 		response.setHeader("Last-modified", LocalDateTime.now().toString());
-		Date date = new Date();
 
 		response.setContentType(type);
 		PrintWriter printWriter = response.getWriter();

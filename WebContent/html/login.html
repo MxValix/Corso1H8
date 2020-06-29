@@ -2,18 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta  http-equiv="pragma" content="no-cache">	
+<link rel="stylesheet" href="/Corso1H8/css/login.css?v=1.0.0">
 <title>Login</title>
 </head>
 <body>
-	<h1 style="text-align:center">Effettua il login</h1>
-	<div style="text-align:center">
-		<form action="/Corso1H8/login" method="POST">
-			 <label for="username">Username:</label><br>
-			 <input type="text" id="username" name="username"><br>
-			 <label for="password">Password:</label><br>
-			 <input type="password" id="password" name="password"><br>
-			 <input type="submit" value="Accedi">
-		</form>
-	</div>	
+
+	<div class="container">
+		<div class="form">
+			<h1>Effettua il login</h1>
+			<form class="login-form" action="/Corso1H8/login" method="POST">
+				<input type="text" id="username" name="username"
+					placeholder="username" /> <input type="password" id="password"
+					name="password" placeholder="password" /> <input type="submit"
+					id="button" value="Accedi">
+			</form>
+		</div>
+	</div>
 </body>
 </html>
